@@ -1,15 +1,16 @@
 #include<iostream>
-#include<iomanip> //For using setw(), setprecision(), ...
+#include<iomanip> 
 using namespace std;
 
 int main(){	
+	double loan,interest,pay;
 	cout << "Enter initial loan: ";
+	cin >> loan;
 	cout << "Enter interest rate per year (%): ";
+	cin >> interest;
 	cout << "Enter amount you can pay per year: ";
+	cin >> pay;
 
-	//use 'setw' to set width of table and 'left' to set left-alignment
-	//you can change input argument of 'setw()' to see the effect
-	//Try to change from 'left' to 'right' and see the effect
 	cout << setw(13) << left << "EndOfYear#"; 
 	cout << setw(13) << left << "PrevBalance"; 
 	cout << setw(13) << left << "Interest"; 
@@ -18,16 +19,26 @@ int main(){
 	cout << setw(13) << left << "NewBalance";
 	cout << "\n";
 	
-	//use 'fixed' and 'setprecision' to fix the number of decimal digits for displaying
-	//you can change input argument of 'setprecision()' to see the effect
-	cout << fixed << setprecision(2); 
-	cout << setw(13) << left << 1; 
-	cout << setw(13) << left << 1000.0;
-	cout << setw(13) << left << 50.0;
-	cout << setw(13) << left << 1050.0;
-	cout << setw(13) << left << 100.0;
-	cout << setw(13) << left << 950.0;
-	cout << "\n";	
+    int year = 0;
+	double prevbal = loan,total,newbal,rate;
+	do{
+		cout << fixed << setprecision(2); 
+		cout << setw(13) << left << year+1; 
+		cout << setw(13) << left << prevbal;
+		rate = (interest/100)*prevbal;
+		cout << setw(13) << left << rate;
+		total =  prevbal + rate;
+		if(total < pay){
+			pay = total;
+		}
+		cout << setw(13) << left << total;
+		cout << setw(13) << left << pay;
+		newbal = total - pay;
+		cout << setw(13) << left << newbal;
+		prevbal = newbal;
+		cout << "\n";
+		year++;	
+	} while(newbal > 0);
 	
 	return 0;
 }
